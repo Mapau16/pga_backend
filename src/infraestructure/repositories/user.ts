@@ -5,7 +5,7 @@ interface IUserRepository {
     findByEmail(email: string): Promise<User>,
 }
 
-export default class UserRepository implements UserRepository  {
+export default class UserRepository implements IUserRepository  {
 
     async findByEmail(email: string): Promise<any> {
         const user = await UserSchema.findOne({ email }).lean();

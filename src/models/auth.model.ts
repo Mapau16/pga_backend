@@ -1,6 +1,12 @@
 import mongoose, { Schema, model, Document } from 'mongoose';
 import { User } from './user.model';
 
+export interface Ilogin {
+    user?: User;
+    token?: string;
+    error?: { message: string };
+}
+
 export interface Auth extends Document {
     token: string;
     refresh_token?: string;
@@ -9,7 +15,7 @@ export interface Auth extends Document {
 
 const AuthSchema = new Schema<Auth>({
     token: { type: String, required: true },
-    refresh_token: { type: String, required: false },
+    refresh_token: { type: String, required: true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 }, {
     timestamps: true,

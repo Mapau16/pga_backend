@@ -1,11 +1,11 @@
 import mongoose, { Schema, model, Document, ObjectId } from 'mongoose';
-import ClientSchema, { Client } from './client.model';
+import { Client } from './client.model';
 
 export interface User extends Document {
     _id?: ObjectId;
     email: string;
     username: string;
-    password: string;
+    password?: string;
     verified: boolean;
     clients: Client[];
 }
