@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { AuthController } from "../controllers/auth.controller";
-//import AuthService from "../services/auth.service";
 
 export class AuthRouter {
 
@@ -11,6 +10,7 @@ export class AuthRouter {
     
         router.post('/login', authController.login);
         router.post('/register', authController.register);
+        router.post('/refresh', authController.refreshToken);
 
         return router;
     }
