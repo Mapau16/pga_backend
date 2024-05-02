@@ -11,6 +11,7 @@ export class AuthRouter {
         router.post('/login', authController.login);
         router.post('/register', authController.register);
         router.post('/refresh', authController.refreshToken);
+        router.get('/validate-email/:token', authController.validateEmail);
 
         return router;
     }
