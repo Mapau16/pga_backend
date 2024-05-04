@@ -19,10 +19,10 @@ export class AuthRepository implements IAuthRepository {
         return token.token;
     }
 
-    async findAuth(usern: string) {
+    async findAuth(user: string) {
         const authData = await AuthSchema.aggregate([
             { $match: { 
-                user: new mongoose.Types.ObjectId(usern)
+                user: new mongoose.Types.ObjectId(user)
             }},
             { $lookup: {
                 from: "user",
