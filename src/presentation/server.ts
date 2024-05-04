@@ -1,5 +1,6 @@
 import express, { Application, Router, json, urlencoded } from "express";
 import connectDB from "../infraestructure/db/mongoose";
+import cors from "cors";
 
 export class Server {
     private _app: Application = express();
@@ -12,6 +13,10 @@ export class Server {
     }
 
     public start(): void {
+        const corsOptions = {
+            origin: 'http://localhost:4200',
+        }
+        this._app.use(cors(corsOptions));
         this._app.use(json());
         this._app.use(urlencoded({ extended: true }));
         this._app.use(this._routes);
