@@ -53,6 +53,7 @@ export class AuthController {
                 res.status(400).send({ message: tokenValidation?.error.message, email_validated: false });
                 return;
             }
+            //TODO: Make something here
             res.status(200).send({ email_validated: true });  
         } catch (error) {
             console.error(error);
