@@ -69,6 +69,7 @@ class AuthService {
             htmlBody: html,
         };
 
+        //TODO: Make something here
         const emailSent = await this._emailService.sendEmail(options);
         console.log(`sentmail: ${emailSent}`);
     }
