@@ -1,17 +1,17 @@
 import { Schema, model, Document } from 'mongoose';
 
-export interface Client extends Document {
+export interface Question extends Document {
     name: string;
     enabled: boolean;
 }
 
-const ClientSchema = new Schema<Client>({
+const QuestionSchema = new Schema<Question>({
     name: { type: String, required: true },
     enabled: { type: Boolean, required: true },
 }, {
     timestamps: true,
     versionKey: false,
-    collection: 'client'
+    collection: 'question'
 });
 
-export default model<Client>('Client', ClientSchema);
+export default model<Question>('Question', QuestionSchema);
