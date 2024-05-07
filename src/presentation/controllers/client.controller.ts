@@ -1,42 +1,55 @@
 import { Request, Response } from "express";
+import ClientService from "../../services/client.service";
 
-import AuthService from "../../services/auth.service";
+interface RequestQuery {
+    name: string;
+  }
 
-export class AuthController {
+export class ClientController {
 
-    public async createClient(req: Request, res: Response) {
+    public async saveClient(req: Request, res: Response) {
         try {
-            const data = await AuthService.createClient(req.body);
-            if (data.error?.message) {
-                res.status(400).send(data.error);
-                return;
-            }
-            res.status(200).send(data);            
+            const clientData = req.body;
+
+            const savedClient = await ClientService.saveClient(clientData);
+            res.status(201).json(savedClient); // 201: Created
         } catch (error) {
-            console.log(error);
+            console.error("Error saving client:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
         }
     }
     
-    public async editClient(req: Request, res: Response) {
+    
+    public async updateClient(req: Request, res: Response) {
         try {
-            const data = await AuthService.editClient(req.params.clientId, req.body);
-            if (data.error?.message) {
-                res.status(400).send(data.error);
+            const { id } = req.params; 
+            const clientData = req.body;
+
+            const updatedClient = await ClientService.updateClient(id, clientData);
+            if (!updatedClient) {
+                res.status(404).json({ error: 'Client not found' });
                 return;
             }
-            res.status(200).send(data); 
+            res.status(200).json(updatedClient);
         } catch (error) {
-            console.log(error);
+            console.error("Error updating client:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
         }
     }
 
-    public async searchClients(req: Request, res: Response) {
+    public async findClientByName(req: Request<RequestQuery>, res: Response) {
         try {
-            const query = req.query.q; 
-            const data = await AuthService.searchClient(query);
-            res.status(200).send(data); 
+            const {name} = req.query as unknown as RequestQuery;
+
+            const foundClient = await ClientService.findClientByName(name);
+            if (!foundClient) {
+                res.status(404).json({ error: 'Client not found' });
+                return;
+            }
+            res.status(200).json(foundClient);
         } catch (error) {
-            console.log(error);
+            console.error("Error finding client:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
         }
     }
 }

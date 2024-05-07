@@ -1,16 +1,17 @@
 import { Router } from "express";
-import { AuthController } from "../controllers/auth.controller";
-//import AuthService from "../services/auth.service";
+import { ClientController } from "../controllers/client.controller";
+
 
 export class ClientRouter {
 
     static get routes(): Router {
         const router = Router();
 
-        const authController = new AuthController();
+        const clientController = new ClientController();
     
-        router.post('/login', authController.login);
-        router.post('/register', authController.register);
+        router.post('/', clientController.saveClient);
+        router.patch('/:id', clientController.updateClient);
+        router.get('/', clientController.findClientByName);
 
         return router;
     }
