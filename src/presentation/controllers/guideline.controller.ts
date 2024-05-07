@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import GuidelineService from "../../services/guideline";
+import GuidelineService from "../../services/guideline.service";
 
 interface RequestQuery {
     name: string;
