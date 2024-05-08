@@ -9,7 +9,7 @@ export class AuthController {
         try {
             const data = await AuthService.login(req.body);
             if (data.error?.message) {
-                res.status(400).send(data.error);
+                res.status(401).send(data.error);
                 return;
             }
             res.status(200).send(data);            
@@ -21,7 +21,7 @@ export class AuthController {
     public async register(req: Request, res: Response) {
         try {
             const newUser = await AuthService.register(req.body);
-            res.status(200).send(newUser);            
+            res.status(201).send(newUser);            
         } catch (error) {
             console.error(error);
         }
