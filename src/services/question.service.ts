@@ -5,7 +5,7 @@ import { errorResponse } from "../config/error.adapter";
 import { QuestionRepository } from "../infraestructure/repositories/question";
 
 import { User } from "../models/user.model";
-import { Ilogin } from "../models/auth.model";
+import { IAuth } from "../models/auth.model";
 import { Client } from "../models/client.model";
 import { Question } from "../models/question.model";
 

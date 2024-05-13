@@ -1,3 +1,4 @@
+import { IAuth } from "../../models/auth.model";
 import UserSchema, { User } from "../../models/user.model";
 
 interface IUserRepository {
@@ -21,6 +22,38 @@ export default class UserRepository implements IUserRepository  {
     async updateUser(email: string, data: any): Promise<User> {
         const user = await UserSchema.findOneAndUpdate({ email }, data, { upsert: true, new: true });
         return user;
+    }
+
+    async getDataAndAuth(email: string): Promise<IAuth> {
+        const data = await UserSchema.aggregate([
+            {$match: { email }},
+            { $lookup: {
+                    from: "auth",
+                    localField: "_id",
+                    foreignField: "user",
+                    as: "_auth"
+            }},
+            { $unwind: {
+                path: "$_auth",
+            }},
+            { $addFields: {
+                token: "$_auth.token",
+                "user._id": "$_id",
+                "user.email": "$email",
+                "user.username": "$username",
+                "user.verified": "$verified",
+                "user.clients": "$clients",
+                "user.createdAt": "$createdAt",
+                "user.updatedAt": "$updatedAt",
+            }},
+            { $project: {
+                token: 1,
+                user: 1,
+                _id: 0,
+            }}
+        ]).option({ allowDiskUse: true });
+
+        return data[0];
     }
 
 }

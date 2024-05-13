@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { AuthController } from "../controllers/auth.controller";
+import { verifyToken } from "../middlewares/auth.middleware";
 
 export class AuthRouter {
 
@@ -12,6 +13,7 @@ export class AuthRouter {
         router.post('/register', authController.register);
         router.post('/refresh', authController.refreshToken);
         router.get('/validate-email/:token', authController.validateEmail);
+        router.get('/check-auth', verifyToken, authController.validateAuth);
 
         return router;
     }

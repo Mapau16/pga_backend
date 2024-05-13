@@ -11,8 +11,10 @@ export class AuthRepository implements IAuthRepository {
 
     async saveToken(tokenBody: { user: User, token: string, refresh_token: string}): Promise<string> {
         const hasToken = await AuthSchema.findOne({ user: tokenBody.user._id});
+        const tokensData = { token: tokenBody.token, refresh_token: tokenBody.refresh_token };
         if (hasToken) {
-            const updatedToken = await AuthSchema.findOneAndUpdate({user: hasToken?.user._id}, tokenBody, { upsert: true });
+            const updatedToken = await AuthSchema.findOneAndUpdate(
+                    { user: hasToken?.user._id }, tokensData, { upsert: true, new: true });
             return updatedToken?.token!;
         }
         const token = await AuthSchema.create(tokenBody);

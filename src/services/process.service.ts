@@ -5,7 +5,7 @@ import { errorResponse } from "../config/error.adapter";
 import { ProcessRepository } from "../infraestructure/repositories/process";
 
 import { User } from "../models/user.model";
-import { Ilogin } from "../models/auth.model";
+import { IAuth } from "../models/auth.model";
 import { Client } from "../models/client.model";
 import { Question } from "../models/question.model";
 import { Guideline } from "../models/guideline.model";
