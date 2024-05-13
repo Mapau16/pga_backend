@@ -1,11 +1,4 @@
-import { JwtAdapter } from "../config/jwt.adapter";
-import { bcriptAdapter } from "../config/bcript.adapter";
-import { errorResponse } from "../config/error.adapter";
-
 import { ClientRepository } from "../infraestructure/repositories/client";
-
-import { User } from "../models/user.model";
-import { Ilogin } from "../models/auth.model";
 import { Client } from "../models/client.model";
 
 class ClientService {
@@ -30,7 +23,11 @@ class ClientService {
     async findClientByName(name: string): Promise<Client[]> { 
         const findedClient = await this._clientRepository.findClientByName(name);
         return findedClient; 
-        //TODO: return client
+    }
+
+    async findAllClients(): Promise<Client[]> { 
+        const findedClient = await this._clientRepository.findAllClients();
+        return findedClient; 
     }
 }
 

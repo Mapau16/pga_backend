@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 
 import AuthService from "../../services/auth.service";
-import { JwtAdapter } from "../../config/jwt.adapter";
+import UserService from "../../services/user.service";
+
+interface RequestWithEmail extends Request {
+    email?: string,
+}
 
 export class AuthController {
 
@@ -53,8 +57,19 @@ export class AuthController {
                 res.status(400).send({ message: tokenValidation?.error.message, email_validated: false });
                 return;
             }
-            
             res.status(200).send({ email_validated: true });  
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    public async validateAuth(req: RequestWithEmail, res: Response) {
+        try {
+            if(req.email) {
+                const userData = await UserService.getUserByEmail(req.email);
+                return res.send(userData).status(200);
+            }
+            res.send({ valid: false }).status(401);
         } catch (error) {
             console.error(error);
         }

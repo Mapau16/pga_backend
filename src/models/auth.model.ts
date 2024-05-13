@@ -1,7 +1,7 @@
 import mongoose, { Schema, model, Document } from 'mongoose';
 import { User } from './user.model';
 
-export interface Ilogin {
+export interface IAuth {
     user?: User;
     token?: string;
     error?: { message: string };

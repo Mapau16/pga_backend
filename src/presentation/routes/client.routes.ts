@@ -9,9 +9,10 @@ export class ClientRouter {
 
         const clientController = new ClientController();
     
+        router.get('/', clientController.findAllClients);
+        router.get('/search', clientController.findClientByName);
         router.post('/', clientController.saveClient);
         router.patch('/:id', clientController.updateClient);
-        router.get('/', clientController.findClientByName);
 
         return router;
     }

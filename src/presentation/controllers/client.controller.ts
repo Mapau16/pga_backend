@@ -52,4 +52,14 @@ export class ClientController {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+
+    public async findAllClients(req: Request<RequestQuery>, res: Response) {
+        try {
+            const clients = await ClientService.findAllClients();
+            res.status(200).json(clients);
+        } catch (error) {
+            console.error("Error finding client:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 }

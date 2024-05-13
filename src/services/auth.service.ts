@@ -6,7 +6,7 @@ import UserRepository from "../infraestructure/repositories/user";
 import { AuthRepository } from "../infraestructure/repositories/auth";
 
 import { User } from "../models/user.model";
-import { Ilogin } from "../models/auth.model";
+import { IAuth } from "../models/auth.model";
 import { EmailService } from "./email.service";
 
 class AuthService {
@@ -22,14 +22,13 @@ class AuthService {
         this._authRepository = authRepository;
     }
 
-    public async login(data: { email: string, password: string }): Promise<Ilogin> {
+    public async login(data: { email: string, password: string }): Promise<IAuth> {
 
-        
         let user: User = await this._userRepository.findByEmail(data.email);
         //validate if user.verified is true
         if (!user) return errorResponse('Email or password incorrect');
         if (!user.verified) {
-           const newEmail = await this.sendEmailValidation(user.email);
+           await this.sendEmailValidation(user.email);
            return errorResponse('User not verified, new email sent');
         }
         const isValidPassword = await bcriptAdapter.compare(data.password, user.password!);
@@ -92,6 +91,13 @@ class AuthService {
         const user = await this._userRepository.findByEmail(email);
         if (!user) return errorResponse('User not exist');
         await this._userRepository.updateUser(user.email, { verified: true });
+    }
+
+    public async validateAuth(token: string) {
+        const validation = JwtAdapter.validateToken(token, 'NORMALTOKEN');
+        if (!validation) return errorResponse('Invalid token'); 
+        console.log(validation);
+
     }
 }
 

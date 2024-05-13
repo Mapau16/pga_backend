@@ -23,4 +23,9 @@ export class ClientRepository implements IClientRepository {
         const client = await ClientSchema.find({ "name" : { $regex: name, $options: 'i' }})
         return client!;
     }
+
+    async findAllClients(): Promise<Client[]> {
+        const client = await ClientSchema.find({});
+        return client!;
+    }
 }
