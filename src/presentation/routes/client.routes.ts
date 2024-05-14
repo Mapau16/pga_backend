@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { ClientController } from "../controllers/client.controller";
+import { validateToken } from "../middlewares/auth.middleware";
 
 
 export class ClientRouter {
@@ -9,10 +10,10 @@ export class ClientRouter {
 
         const clientController = new ClientController();
     
-        router.get('/', clientController.findAllClients);
         router.get('/search', clientController.findClientByName);
         router.post('/', clientController.saveClient);
         router.patch('/:id', clientController.updateClient);
+        router.get('/', validateToken, clientController.findAllClients);
 
         return router;
     }
