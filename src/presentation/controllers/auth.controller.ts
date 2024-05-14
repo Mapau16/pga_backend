@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import AuthService from "../../services/auth.service";
 import UserService from "../../services/user.service";
+import mongoose from "mongoose";
 
 interface RequestWithEmail extends Request {
     email?: string,
@@ -33,18 +34,20 @@ export class AuthController {
 
     public async refreshToken(req: Request, res: Response) {
         try {
-            const { user } = req.body;
-            if (!user) {
+            const { user } = req.params;
+            
+            if (!mongoose.isValidObjectId(user)) {
                 res.status(400).send({message: 'Property user is missing'}); 
                 return;
             }
             const newToken = await AuthService.refreshToken(user);
             if (newToken.error) {
-                res.status(401).send(newToken.error);
+                res.status(498).send(newToken.error);
                 return;
             }
             res.status(200).send({ token: newToken });            
         } catch (error) {
+            res.status(400).send({message: 'Property user is missing'}); 
             console.error(error);
         }
     }

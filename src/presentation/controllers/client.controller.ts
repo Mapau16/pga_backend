@@ -37,7 +37,7 @@ export class ClientController {
         }
     }
 
-    public async findClientByName(req: Request<RequestQuery>, res: Response) {
+    public async findClientByName(req: Request, res: Response) {
         try {
             const {name} = req.query as unknown as RequestQuery;
 
@@ -53,7 +53,7 @@ export class ClientController {
         }
     }
 
-    public async findAllClients(req: Request<RequestQuery>, res: Response) {
+    public async findAllClients(req: Request, res: Response) {
         try {
             const clients = await ClientService.findAllClients();
             res.status(200).json(clients);

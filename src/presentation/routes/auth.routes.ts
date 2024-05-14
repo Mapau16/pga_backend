@@ -9,11 +9,11 @@ export class AuthRouter {
 
         const authController = new AuthController();
     
-        router.post('/login', authController.login);
-        router.post('/register', authController.register);
-        router.post('/refresh', authController.refreshToken);
+        router.get('/refresh/:user', authController.refreshToken);
         router.get('/validate-email/:token', authController.validateEmail);
         router.get('/check-auth', verifyToken, authController.validateAuth);
+        router.post('/login', authController.login);
+        router.post('/register', authController.register);
 
         return router;
     }

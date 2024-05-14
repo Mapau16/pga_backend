@@ -34,8 +34,8 @@ class AuthService {
         const isValidPassword = await bcriptAdapter.compare(data.password, user.password!);
         if (!isValidPassword) return errorResponse('Password incorrect');
         const payload = { email: user.email, password: user.password };
-        const newToken = JwtAdapter.generateToken(payload, '30m', 'NORMALTOKEN');
-        const newRefreshToken = JwtAdapter.generateToken(payload, '2h', 'REFRESHTOKEN');
+        const newToken = JwtAdapter.generateToken(payload, '10s', 'NORMALTOKEN');
+        const newRefreshToken = JwtAdapter.generateToken(payload, '30s', 'REFRESHTOKEN');
         const token = await this._authRepository.saveToken({user, token: newToken, refresh_token: newRefreshToken});
         delete user.password;
         return {user, token};
@@ -79,7 +79,7 @@ class AuthService {
         const refreshTokenValid = JwtAdapter.validateToken(userData.refresh_token!, 'REFRESHTOKEN');
         if (!refreshTokenValid) return errorResponse('Refresh token has expired');
         const payload = { email: userData.email, password: userData.password };
-        const newToken = JwtAdapter.generateToken(payload, '30m', 'NORMALTOKEN');
+        const newToken = JwtAdapter.generateToken(payload, '10s', 'NORMALTOKEN');
         const updatedToken = await this._authRepository.saveRefreshedToken(userData, newToken);
         return updatedToken;
     }
