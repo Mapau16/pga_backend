@@ -33,6 +33,11 @@ class ProcessService {
         const findedProcess = await this._processRepository.findProcessByName(name);
         return findedProcess; 
     }
+
+    async findAllProcess(): Promise<Process[]> { 
+        const findedProcess = await this._processRepository.findAllProcess();
+        return findedProcess; 
+    }
 }
 
 export default new ProcessService(new ProcessRepository());

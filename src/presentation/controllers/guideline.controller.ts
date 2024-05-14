@@ -52,4 +52,14 @@ export class GuidelineController {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+
+    public async findAllGuidelines(req: Request, res: Response) {
+        try {
+            const guidelines = await GuidelineService.findAllGuidelines();
+            res.status(200).json(guidelines);
+        } catch (error) {
+            console.error("Error finding guideline:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 }

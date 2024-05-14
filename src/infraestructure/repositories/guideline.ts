@@ -23,4 +23,9 @@ export class GuidelineRepository implements IGuidelineRepository {
         const guideline = await GuidelineSchema.find({ "name" : { $regex: name, $options: 'i' }})
         return guideline!;
     }
+
+    async findAllGuidelines(): Promise<Guideline[]> {
+        const guideline = await GuidelineSchema.find({});
+        return guideline!;
+    }
 }

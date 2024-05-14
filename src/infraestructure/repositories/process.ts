@@ -23,4 +23,9 @@ export class ProcessRepository implements IProcessRepository {
         const process = await ProcessSchema.find({ "name" : { $regex: name, $options: 'i' }})
         return process!;
     }
+
+    async findAllProcess(): Promise<Process[]> {
+        const process = await ProcessSchema.find({});
+        return process!;
+    }
 }
