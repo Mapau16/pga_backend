@@ -37,7 +37,7 @@ export class ProcessController {
         }
     }
 
-    public async findProcessByName(req: Request<RequestQuery>, res: Response) {
+    public async findProcessByName(req: Request, res: Response) {
         try {
             const {name} = req.query as unknown as RequestQuery;
 

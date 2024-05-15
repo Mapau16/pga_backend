@@ -10,9 +10,9 @@ export class QuestionRouter {
 
         const questionController = new QuestionController();
     
-        router.get('/search', questionController.findQuestionByName);
-        router.post('/', questionController.saveQuestion);
-        router.patch('/:id', questionController.updateQuestion);
+        router.get('/search', validateToken, questionController.findQuestionByName);
+        router.post('/', validateToken, questionController.saveQuestion);
+        router.patch('/:id', validateToken, questionController.updateQuestion);
         router.get('/', validateToken, questionController.findAllQuestions);
 
         return router;

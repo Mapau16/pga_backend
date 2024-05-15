@@ -10,9 +10,9 @@ export class GuidelineRouter {
 
         const guidelineController = new GuidelineController();
     
-        router.get('/search', guidelineController.findGuidelineByName);
-        router.post('/', guidelineController.saveGuideline);
-        router.patch('/:id', guidelineController.updateGuideline);
+        router.get('/search', validateToken, guidelineController.findGuidelineByName);
+        router.post('/', validateToken, guidelineController.saveGuideline);
+        router.patch('/:id', validateToken, guidelineController.updateGuideline);
         router.get('/', validateToken, guidelineController.findAllGuidelines);
 
         return router;

@@ -37,7 +37,7 @@ export class GuidelineController {
         }
     }
 
-    public async findGuidelineByName(req: Request<RequestQuery>, res: Response) {
+    public async findGuidelineByName(req: Request, res: Response) {
         try {
             const {name} = req.query as unknown as RequestQuery;
 

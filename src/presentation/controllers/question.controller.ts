@@ -37,7 +37,7 @@ export class QuestionController {
         }
     }
 
-    public async findQuestionByName(req: Request<RequestQuery>, res: Response) {
+    public async findQuestionByName(req: Request, res: Response) {
         try {
             const {name} = req.query as unknown as RequestQuery;
 
