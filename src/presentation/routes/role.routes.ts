@@ -10,9 +10,9 @@ export class RoleRouter {
 
         const roleController = new RoleController();
     
-        router.get('/search', roleController.findRoleByName);
-        router.post('/', roleController.saveRole);
-        router.patch('/:id', roleController.updateRole);
+        router.get('/search', validateToken, roleController.findRoleByName);
+        router.post('/', validateToken, roleController.saveRole);
+        router.patch('/:id', validateToken, roleController.updateRole);
         router.get('/', validateToken, roleController.findAllRoles);
 
         return router;

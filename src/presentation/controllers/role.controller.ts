@@ -37,7 +37,7 @@ export class RoleController {
         }
     }
 
-    public async findRoleByName(req: Request<RequestQuery>, res: Response) {
+    public async findRoleByName(req: Request, res: Response) {
         try {
             const {name} = req.query as unknown as RequestQuery;
 

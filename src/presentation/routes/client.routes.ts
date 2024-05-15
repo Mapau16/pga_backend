@@ -10,9 +10,9 @@ export class ClientRouter {
 
         const clientController = new ClientController();
     
-        router.get('/search', clientController.findClientByName);
-        router.post('/', clientController.saveClient);
-        router.patch('/:id', clientController.updateClient);
+        router.get('/search', validateToken, clientController.findClientByName);
+        router.post('/', validateToken, clientController.saveClient);
+        router.patch('/:id', validateToken, clientController.updateClient);
         router.get('/', validateToken, clientController.findAllClients);
 
         return router;

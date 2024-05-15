@@ -10,9 +10,9 @@ export class ProcessRouter {
 
         const processController = new ProcessController();
     
-        router.get('/search', processController.findProcessByName);
-        router.post('/', processController.saveProcess);
-        router.patch('/:id', processController.updateProcess);
+        router.get('/search', validateToken, processController.findProcessByName);
+        router.post('/', validateToken, processController.saveProcess);
+        router.patch('/:id', validateToken, processController.updateProcess);
         router.get('/', validateToken, processController.findAllProcess);
 
         return router;
