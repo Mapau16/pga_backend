@@ -52,4 +52,14 @@ export class RoleController {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+
+    public async findAllRoles(req: Request, res: Response) {
+        try {
+            const roles = await RoleService.findAllRoles();
+            res.status(200).json(roles);
+        } catch (error) {
+            console.error("Error finding role:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 }

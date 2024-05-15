@@ -23,4 +23,9 @@ export class RoleRepository implements IRoleRepository {
         const role = await RoleSchema.find({ "name" : { $regex: name, $options: 'i' }})
         return role!;
     }
+
+    async findAllRoles(): Promise<Role[]> {
+        const role = await RoleSchema.find({});
+        return role!;
+    }
 }

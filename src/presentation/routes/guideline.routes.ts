@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { GuidelineController } from "../controllers/guideline.controller";
+import { validateToken } from "../middlewares/auth.middleware";
 
 
 export class GuidelineRouter {
@@ -9,9 +10,10 @@ export class GuidelineRouter {
 
         const guidelineController = new GuidelineController();
     
+        router.get('/search', guidelineController.findGuidelineByName);
         router.post('/', guidelineController.saveGuideline);
         router.patch('/:id', guidelineController.updateGuideline);
-        router.get('/', guidelineController.findGuidelineByName);
+        router.get('/', validateToken, guidelineController.findAllGuidelines);
 
         return router;
     }

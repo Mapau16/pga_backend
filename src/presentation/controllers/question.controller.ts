@@ -52,4 +52,14 @@ export class QuestionController {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+
+    public async findAllQuestions(req: Request, res: Response) {
+        try {
+            const questions = await QuestionService.findAllQuestions();
+            res.status(200).json(questions);
+        } catch (error) {
+            console.error("Error finding question:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 }

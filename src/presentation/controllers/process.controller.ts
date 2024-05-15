@@ -52,4 +52,14 @@ export class ProcessController {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+
+    public async findAllProcess(req: Request, res: Response) {
+        try {
+            const process = await ProcessService.findAllProcess();
+            res.status(200).json(process);
+        } catch (error) {
+            console.error("Error finding process:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 }

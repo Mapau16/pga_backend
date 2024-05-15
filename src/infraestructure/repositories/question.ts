@@ -23,4 +23,9 @@ export class QuestionRepository implements IQuestionRepository {
         const question = await QuestionSchema.find({ "name" : { $regex: name, $options: 'i' }})
         return question!;
     }
+
+    async findAllQuestions(): Promise<Question[]> {
+        const question = await QuestionSchema.find({});
+        return question!;
+    }
 }

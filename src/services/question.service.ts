@@ -32,6 +32,11 @@ class QuestionService {
         return findedQuestion; 
        
     }
+
+    async findAllQuestions(): Promise<Question[]> { 
+        const findedQuestion = await this._questionRepository.findAllQuestions();
+        return findedQuestion; 
+    }
 }
 
 export default new QuestionService(new QuestionRepository());

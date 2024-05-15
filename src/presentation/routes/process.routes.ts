@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { ProcessController } from "../controllers/process.controller";
+import { validateToken } from "../middlewares/auth.middleware";
 
 
 export class ProcessRouter {
@@ -9,9 +10,10 @@ export class ProcessRouter {
 
         const processController = new ProcessController();
     
+        router.get('/search', processController.findProcessByName);
         router.post('/', processController.saveProcess);
         router.patch('/:id', processController.updateProcess);
-        router.get('/', processController.findProcessByName);
+        router.get('/', validateToken, processController.findAllProcess);
 
         return router;
     }

@@ -34,6 +34,11 @@ class RoleService {
         const findedRole = await this._roleRepository.findRoleByName(name);
         return findedRole; 
     }
+
+    async findAllRoles(): Promise<Role[]> { 
+        const findedRole = await this._roleRepository.findAllRoles();
+        return findedRole; 
+    }
 }
 
 export default new RoleService(new RoleRepository());

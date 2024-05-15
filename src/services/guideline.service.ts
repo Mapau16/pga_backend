@@ -32,6 +32,11 @@ class GuidelineService {
         const findedGuideline = await this._guidelineRepository.findGuidelineByName(name);
         return findedGuideline; 
     }
+
+    async findAllGuidelines(): Promise<Guideline[]> { 
+        const findedGuideline = await this._guidelineRepository.findAllGuidelines();
+        return findedGuideline; 
+    }
 }
 
 export default new GuidelineService(new GuidelineRepository());
