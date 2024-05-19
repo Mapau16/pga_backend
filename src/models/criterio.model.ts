@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from "mongoose";
-import guidelineModel, { Guideline } from "./guideline.model";
-import processModel, { Process } from "./process.model";
-import questionModel, { Question } from "./question.model";
+import { Guideline } from "./guideline.model";
+import { Process } from "./process.model";
+import { Question } from "./question.model";
 
 enum Status {
     NA = 'NA',
@@ -25,17 +25,18 @@ const CriterioSchema = new Schema<Criterio>({
     name: { type: String, required: true, },
     items: [
         {
+            _id: false,
             guideline: { type: mongoose.Schema.Types.ObjectId, ref: 'Guideline' },
             process: { type: mongoose.Schema.Types.ObjectId, ref: 'Process' },
             question: { type: mongoose.Schema.Types.ObjectId, ref: 'Question' },
             observation: { type: String, required: false },
-            status: { type: Boolean, required: true },
+            status: { type: String, default: 'NA', enum: ['NA', 'APLICA'] },
         }
     ]
 }, {
     timestamps: true,
     versionKey: false,
-    collection: 'Criterio'
+    collection: 'criterio'
 });
 
 export default model<Criterio>('Criterio', CriterioSchema);
