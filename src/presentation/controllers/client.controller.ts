@@ -3,7 +3,7 @@ import ClientService from "../../services/client.service";
 
 interface RequestQuery {
     name: string;
-  }
+}
 
 export class ClientController {
 

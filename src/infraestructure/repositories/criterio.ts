@@ -23,6 +23,11 @@ export class CriterioRepository implements ICriterioRepository {
        return criterios;
     }
 
+    async findCriterioByName(name: string): Promise<Criterio[]> {
+        const criterios = await CriterioSchema.find({ "name" : { $regex: name, $options: 'i' }})
+        return criterios!;
+    }
+
     async findCriterioById(idcriterio: string): Promise<Criterio> {
         const criterio = await CriterioSchema.aggregate([
             {
@@ -89,5 +94,14 @@ export class CriterioRepository implements ICriterioRepository {
         ]).option({ allowDiskUse: true });
 
        return criterio[0];
+    }
+
+    async updateCriterio(idcriterio: string, criterio: Criterio): Promise<Criterio> {
+        const updatedCriterio = await CriterioSchema.findOneAndUpdate(
+            {_id: new mongoose.Types.ObjectId(idcriterio)}, 
+            criterio, 
+            { upsert: true, new: true }
+        );
+        return updatedCriterio;
     }
 }
