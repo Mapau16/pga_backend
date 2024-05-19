@@ -12,6 +12,16 @@ class CriterioService {
         const savedCriterio = await this._criterioRepository.saveCriterio(criterio);
         return savedCriterio;
     }
+
+    async findAllCriterios(): Promise<Criterio[]> { 
+        const criterios = await this._criterioRepository.findAllCriterios();
+        return criterios;
+    }
+
+    async findCriterioById(idcriterio: string): Promise<Criterio> { 
+        const criterio = await this._criterioRepository.findCriterioById(idcriterio);
+        return criterio;
+    }
 }
 
 export default new CriterioService(new CriterioRepository());

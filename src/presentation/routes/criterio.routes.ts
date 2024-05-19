@@ -11,6 +11,9 @@ export class CriterioRouter {
         const criterioController = new CriterioController();
     
         router.post('/', validateToken, criterioController.saveCriterio);
+        router.get('/', validateToken, criterioController.findAllCriterios);
+        router.get('/:idcriterio', validateToken, criterioController.findCriterioById);
+        router.patch('/:idcriterio', validateToken, criterioController.updateCriterio);
 
         return router;
     }

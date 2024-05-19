@@ -18,11 +18,13 @@ export interface Item {
 
 export interface Criterio extends Document {
     name: string;
+    enabled: boolean;
     items: Item[]
 }
 
 const CriterioSchema = new Schema<Criterio>({ 
     name: { type: String, required: true, },
+    enabled: { type: Boolean, required: true, },
     items: [
         {
             _id: false,
