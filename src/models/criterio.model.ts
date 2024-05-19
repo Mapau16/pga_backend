@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import guidelineModel, { Guideline } from "./guideline.model";
 import processModel, { Process } from "./process.model";
 import questionModel, { Question } from "./question.model";
@@ -25,9 +25,9 @@ const CriterioSchema = new Schema<Criterio>({
     name: { type: String, required: true, },
     items: [
         {
-            guideline: [ guidelineModel ],
-            process: [ processModel ],
-            question: [ questionModel ],
+            guideline: { type: mongoose.Schema.Types.ObjectId, ref: 'Guideline' },
+            process: { type: mongoose.Schema.Types.ObjectId, ref: 'Process' },
+            question: { type: mongoose.Schema.Types.ObjectId, ref: 'Question' },
             observation: { type: String, required: false },
             status: { type: Boolean, required: true },
         }
