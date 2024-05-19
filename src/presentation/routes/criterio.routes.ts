@@ -12,6 +12,7 @@ export class CriterioRouter {
     
         router.post('/', validateToken, criterioController.saveCriterio);
         router.get('/', validateToken, criterioController.findAllCriterios);
+        router.get('/search', validateToken, criterioController.findCriterioByName);
         router.get('/:idcriterio', validateToken, criterioController.findCriterioById);
         router.patch('/:idcriterio', validateToken, criterioController.updateCriterio);
 

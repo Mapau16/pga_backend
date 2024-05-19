@@ -22,6 +22,16 @@ class CriterioService {
         const criterio = await this._criterioRepository.findCriterioById(idcriterio);
         return criterio;
     }
+
+    async findCriterioByName(name: string): Promise<Criterio[]> { 
+        const criterio = await this._criterioRepository.findCriterioByName(name);
+        return criterio;
+    }
+
+    async updateCriterio(idcriterio: string, criterio: Criterio): Promise<Criterio> { 
+        const updatedCriterio = await this._criterioRepository.updateCriterio(idcriterio, criterio);
+        return updatedCriterio;
+    }
 }
 
 export default new CriterioService(new CriterioRepository());
