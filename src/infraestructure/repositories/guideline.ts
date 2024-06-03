@@ -20,7 +20,7 @@ export class GuidelineRepository implements IGuidelineRepository {
     }
 
     async findGuidelineByName(name: string): Promise<Guideline[]> {
-        const guideline = await GuidelineSchema.find({ "name" : { $regex: name, $options: 'i' }})
+        const guideline = await GuidelineSchema.find({ "name" : { $regex: name, $options: 'i' }}, { createdAt: 0,  updatedAt: 0 });
         return guideline!;
     }
 
