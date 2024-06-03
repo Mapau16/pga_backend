@@ -20,7 +20,7 @@ export class QuestionRepository implements IQuestionRepository {
     }
 
     async findQuestionByName(name: string): Promise<Question[]> {
-        const question = await QuestionSchema.find({ "name" : { $regex: name, $options: 'i' }})
+        const question = await QuestionSchema.find({ "name" : { $regex: name, $options: 'i' }}, { createdAt: 0,  updatedAt: 0 });
         return question!;
     }
 
