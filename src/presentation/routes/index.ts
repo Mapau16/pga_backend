@@ -6,6 +6,7 @@ import { GuidelineRouter } from "./guideline.routes";
 import { ProcessRouter } from "./process.routes";
 import { RoleRouter } from "./role.routes";
 import { CriterioRouter } from "./criterio.routes";
+import { ReviewRouter } from "./review.routes";
 
 
 export class AppRoutes {
@@ -20,6 +21,7 @@ export class AppRoutes {
         router.use('/api/v1/process', ProcessRouter.routes);
         router.use('/api/v1/role', RoleRouter.routes);
         router.use('/api/v1/criterio', CriterioRouter.routes);
+        router.use('/api/v1/review', ReviewRouter.routes);
 
         return router;
     }
