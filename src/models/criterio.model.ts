@@ -9,9 +9,9 @@ enum Status {
 }
 
 export interface Item {
-    guideline: Guideline;
-    process: Process;
-    question: Question;
+    guideline:  mongoose.Types.ObjectId | string;
+    process:  mongoose.Types.ObjectId | string;
+    question:  mongoose.Types.ObjectId | string;
     observation: string;
     status: Status;
 }
@@ -22,19 +22,18 @@ export interface Criterio extends Document {
     items: Item[]
 }
 
+const ItemSchema = new Schema<Item>({
+    guideline: { type: Schema.Types.Mixed, required: false },
+    process: { type: Schema.Types.Mixed, required: false },
+    question: { type: Schema.Types.Mixed, required: false },
+    observation: { type: String, required: false },
+    status: { type: String, enum: Object.values(Status), default: Status.NA }
+}, { _id: false });
+
 const CriterioSchema = new Schema<Criterio>({ 
     name: { type: String, required: true, },
     enabled: { type: Boolean, required: true, },
-    items: [
-        {
-            _id: false,
-            guideline: { type: mongoose.Schema.Types.ObjectId, ref: 'Guideline' },
-            process: { type: mongoose.Schema.Types.ObjectId, ref: 'Process' },
-            question: { type: mongoose.Schema.Types.ObjectId, ref: 'Question' },
-            observation: { type: String, required: false },
-            status: { type: String, default: 'NA', enum: ['NA', 'APLICA'] },
-        }
-    ]
+    items:  [ItemSchema]
 }, {
     timestamps: true,
     versionKey: false,
