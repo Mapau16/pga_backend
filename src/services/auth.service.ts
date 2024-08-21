@@ -56,7 +56,7 @@ class AuthService {
     private async sendEmailValidation(userEmail: string): Promise<void> {
         
         const token = JwtAdapter.generateToken({email: userEmail}, '10m', 'EMAILTOKEN');
-        const link = `http://localhost:3000/api/v1/auth/validate-email/${token}`;
+        const link = `http://localhost:4200/auth/validate-account/${token}`;
         const html = `
         <h1>Valida tu email</h1>
         <p>Click en el siguiente link para validar tu email</p>
@@ -101,4 +101,4 @@ class AuthService {
     }
 }
 
-export default new AuthService(new UserRepository(), new AuthRepository(), new EmailService('gmail', 'joser16torres@gmail.com', 'rmjy cnxp gguf lkbg'));
+export default new AuthService(new UserRepository(), new AuthRepository(), new EmailService('gmail', 'joser16torres@gmail.com', 'gzxi dtlo pzjq ykjd'));
