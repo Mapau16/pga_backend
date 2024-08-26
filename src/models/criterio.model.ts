@@ -9,9 +9,9 @@ enum Status {
 }
 
 export interface Item {
-    guideline:  mongoose.Types.ObjectId | string;
-    process:  mongoose.Types.ObjectId | string;
-    question:  mongoose.Types.ObjectId | string;
+    guideline:  Guideline;
+    process:  Process;
+    question:  Question;
     observation: string;
     status: Status;
 }
@@ -23,9 +23,9 @@ export interface Criterio extends Document {
 }
 
 const ItemSchema = new Schema<Item>({
-    guideline: { type: Schema.Types.Mixed, required: false },
-    process: { type: Schema.Types.Mixed, required: false },
-    question: { type: Schema.Types.Mixed, required: false },
+    guideline: { type: mongoose.Schema.Types.ObjectId, ref: 'Guideline' },
+    process: { type: mongoose.Schema.Types.ObjectId, ref: 'Process' },
+    question: { type: mongoose.Schema.Types.ObjectId, ref: 'Question' },
     observation: { type: String, required: false },
     status: { type: String, enum: Object.values(Status), default: Status.NA }
 }, { _id: false });
