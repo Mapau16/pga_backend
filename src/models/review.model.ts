@@ -1,5 +1,10 @@
 import { Schema, model, Document } from 'mongoose';
-import CriterioShema, { Criterio} from './criterio.model';
+import CriterioSchema, { Criterio} from './criterio.model';
+
+enum Status {
+    NA = 'NA',
+    APLICA = 'APLICA'
+}
 
 export interface Review extends Document {
     name: string;
@@ -12,19 +17,46 @@ export interface Cycle extends Document {
     _id?: String;
     name: string;
     worker: string;
-    role: String
+    role: String;
     date: Date;
     criterio: Criterio;
 }
 
+interface Items {
+    guideline: string;
+    process:  string;
+    question: string;
+    observation?: string;
+    status: Status;
+}
+
+export interface CriterioReview extends Document {
+    name: string;
+    enabled: boolean;
+    items: Items[]
+}
+
+//const CriterioSchemaNoTimestamps = new Schema(CriterioSchema.schema.obj, { _id: false, timestamps: false });
+
+const CriterioReviewSchema = new Schema<CriterioReview>({
+    name: { type: String, required: true, },
+    enabled: { type: Boolean, required: true, },
+    items: [{
+        guideline: { type: String, required: true },
+        process:  { type: String, required: true },
+        question: { type: String, required: true },
+        observation:  { type: String },
+        status: { type: String, enum: Object.values(Status), default: Status.NA },
+}]
+}, { _id: false });
+
 const CycleSchema = new Schema<Cycle>({
-    _id: { type: Schema.Types.Mixed, default: null },
     name: { type: String, required: true },
     worker: { type: String, required: true },
     role: { type: String, required: true },
     date: { type: Date, required: true },
-    criterio: { type: CriterioShema.schema, required: true },
-});
+    criterio: CriterioReviewSchema
+}, { _id: false });
 
 const ReviewSchema = new Schema<Review>({
     name: { type: String, required: true },
