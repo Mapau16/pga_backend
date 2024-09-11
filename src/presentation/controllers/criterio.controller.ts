@@ -43,7 +43,7 @@ export class CriterioController {
     public async findCriterioByName(req: Request, res: Response) {
         try {
             const { name } = req.query as unknown as RequestQuery;
-            const criterios = await CriterioService.findCriterioById(name);
+            const criterios = await CriterioService.findCriterioByName(name);
             res.status(200).json(criterios);            
         } catch (error) {
             console.error("Error finding criterios:", error);

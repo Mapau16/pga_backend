@@ -23,6 +23,16 @@ class ReviewService {
         const findedReview = await this._reviewRepository.findAllReviews();
         return findedReview; 
     }
+
+    async findReviewById(idreview: string): Promise<Review> { 
+        const findedReview = await this._reviewRepository.findReviewById(idreview);
+        return findedReview; 
+    }
+
+    async updateReview(id: string, review: Review): Promise<Review> { 
+        const updatedReview = await this._reviewRepository.updateReview(id, review);
+        return updatedReview;
+    }
 }
 
 export default new ReviewService(new ReviewRepository());
