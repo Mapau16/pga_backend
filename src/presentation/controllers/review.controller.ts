@@ -44,4 +44,38 @@ export class ReviewController {
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+
+    public async findReviewById(req: Request, res: Response) {
+        try {
+            const { idreview } = req.params as any;
+
+            const review = await ReviewService.findReviewById(idreview);
+            if (!review) {
+                res.status(404).json({ error: 'Review not found' });
+                return;
+            }
+            res.status(200).json(review);
+        } catch (error) {
+            console.error("Error finding review:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
+    public async updateReview(req: Request, res: Response) {
+        try {
+            const { idreview } = req.params; 
+            const reviewData = req.body;
+
+            const updatedreview = await ReviewService.updateReview(idreview, reviewData);
+            if (!updatedreview) {
+                res.status(404).json({ error: 'Review not found' });
+                return;
+            }
+            res.status(200).json(updatedreview);
+        } catch (error) {
+            console.error("Error updating review:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
 }
