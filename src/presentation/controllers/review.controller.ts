@@ -78,4 +78,34 @@ export class ReviewController {
         }
     }
 
+    public async reviewsByClients(req: Request, res: Response) {
+        try {
+            const data = await ReviewService.reviewsByClients();
+            res.status(200).json(data);
+        } catch (error) {
+            console.error("Error:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
+    public async reviewsByRoles(req: Request, res: Response) {
+        try {
+            const data = await ReviewService.reviewsByRoles();
+            res.status(200).json(data);
+        } catch (error) {
+            console.error("Error:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
+    public async reviewsByItems(req: Request, res: Response) {
+        try {
+            const data = await ReviewService.reviewsByItems();
+            res.status(200).json(data);
+        } catch (error) {
+            console.error("Error:", error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
 }

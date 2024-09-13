@@ -47,4 +47,77 @@ export class ReviewRepository implements IReviewRepository {
 
         return updateReview;
      }
+
+    async getReviewsByClients(): Promise<any> {
+        const data = await ReviewSchema.aggregate([
+            {
+                $group: {
+                    _id: "$client",
+                    count: { $count: {} }
+                }
+            },
+            {
+                $project: {
+                  client: "$_id",
+                  count: "$count",
+                  _id: 0
+                }
+            }
+        ]);
+        return data;
+    }
+
+    async getReviewsByRoles(): Promise<any> {
+        const data = await ReviewSchema.aggregate([
+            {
+                $group: {
+                    _id: "$cycle.role",
+                    count: { $count: {} }
+                }
+            },
+            {
+                $project: {
+                  role: "$_id",
+                  count: "$count",
+                  _id: 0
+                }
+            }
+        ]);
+        return data;
+    }
+
+    async getItemsByReviews(): Promise<any> {
+        const data = await ReviewSchema.aggregate([
+            {
+                $project: {
+                    review: "$name",
+                    worker: "$cycle.worker",
+                    totalItems: {
+                        $size: "$cycle.criterio.items"
+                    },
+                    applycount: {
+                        $size: {
+                            $filter: {
+                                input: "$cycle.criterio.items",
+                                as: "item",
+                                cond: {
+                                    $eq: ["$$item.status", "APLICA"]
+                                }
+                            }
+                        }
+                    },
+                    noapplycount: {
+                        $size: {
+                            $filter: {
+                                input: "$cycle.criterio.items",
+                                as: "item",
+                                cond: { $eq: ["$$item.status", "NA"] }
+                            }
+                        }
+                    }
+                }
+            }
+        ]);
+        return data;
+    }
 }

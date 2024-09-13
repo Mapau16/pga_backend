@@ -33,6 +33,21 @@ class ReviewService {
         const updatedReview = await this._reviewRepository.updateReview(id, review);
         return updatedReview;
     }
+
+    async reviewsByClients(): Promise<any> { 
+        const data = await this._reviewRepository.getReviewsByClients();
+        return data;
+    }
+    
+    async reviewsByRoles(): Promise<any> { 
+        const data = await this._reviewRepository.getReviewsByRoles();
+        return data;
+    }
+
+    async reviewsByItems(): Promise<any> { 
+        const data = await this._reviewRepository.getItemsByReviews();
+        return data;
+    }
 }
 
 export default new ReviewService(new ReviewRepository());
