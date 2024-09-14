@@ -58,13 +58,61 @@ class AuthService {
         const token = JwtAdapter.generateToken({email: userEmail}, '10m', 'EMAILTOKEN');
         const link = `http://localhost:4200/auth/validate-account/${token}`;
         const html = `
-        <h1>Valida tu email</h1>
-        <p>Click en el siguiente link para validar tu email</p>
-        <a href="${ link }">Validate your email: ${ userEmail }</a>`;
+        <body style="font-family: 'Poppins', Arial, sans-serif">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="center" style="padding: 20px;">
+                        <table class="content" width="600" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; border: 1px solid #cccccc;">
+                            <!-- Header -->
+                            <tr>
+                                <td class="header" style="background-color: #ff7e06; padding: 40px; text-align: center; color: white; font-size: 24px;">
+                                Instrucciones de confirmación
+                                </td>
+                            </tr>
+
+                            <!-- Body -->
+                            <tr>
+                                <td class="body" style="padding: 40px; text-align: left; font-size: 16px; line-height: 1.6;">
+                                Hola! <br>
+                                Confirma tu correo ${ userEmail } para poder ingresar a la plataforma.
+                                <br><br>
+                                    Da click al boton de abajo para confirmar tu cuenta.            
+                                </td>
+                            </tr>
+
+                            <!-- Call to action Button -->
+                            <tr>
+                                <td style="padding: 0px 40px 0px 40px; text-align: center;">
+                                    <!-- CTA Button -->
+                                    <table cellspacing="0" cellpadding="0" style="margin: auto;">
+                                        <tr>
+                                            <td align="center" style="background-color: #ff7e06; padding: 10px 20px; border-radius: 5px;">
+                                                <a href="${ link }" target="_blank" style="color: #ffffff; text-decoration: none; font-weight: bold;">Confirmar cuenta</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="body" style="padding: 40px; text-align: left; font-size: 16px; line-height: 1.6;">
+                                    Estás recibiendo este correo porque tienes una cuenta en PGA.             
+                                </td>
+                            </tr>
+                            <!-- Footer -->
+                            <tr>
+                                <td class="footer" style="background-color: #050531; padding: 40px; text-align: center; color: white; font-size: 14px;">
+                                Copyright &copy; 2024 | PGA
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>`;
 
         const options = {
             to: userEmail,
-            subject: 'Validación de email',
+            subject: 'Validar cuenta',
             htmlBody: html,
         };
 
