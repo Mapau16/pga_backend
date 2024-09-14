@@ -14,7 +14,7 @@ export class AuthController {
         try {
             const data = await AuthService.login(req.body);
             if (data.error?.message) {
-                res.status(401).send(data.error);
+                res.status(400).send(data.error);
                 return;
             }
             res.status(200).send(data);            
