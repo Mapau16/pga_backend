@@ -76,7 +76,7 @@ class AuthService {
                                 Hola! <br>
                                 Confirma tu correo ${ userEmail } para poder ingresar a la plataforma.
                                 <br><br>
-                                    Da click al botón de abajo para confirmar tu cuenta.            
+                                    Da click al botótn de abajo para confirmar tu cuenta.            
                                 </td>
                             </tr>
 
