@@ -101,7 +101,7 @@ export class ReviewRepository implements IReviewRepository {
                                 input: "$cycle.criterio.items",
                                 as: "item",
                                 cond: {
-                                    $eq: ["$$item.status", "APLICA"]
+                                    $eq: ["$$item.status", "CUMPLE"]
                                 }
                             }
                         }
@@ -111,7 +111,7 @@ export class ReviewRepository implements IReviewRepository {
                             $filter: {
                                 input: "$cycle.criterio.items",
                                 as: "item",
-                                cond: { $eq: ["$$item.status", "NA"] }
+                                cond: { $eq: ["$$item.status", "NO CUMPLE"] }
                             }
                         }
                     }
