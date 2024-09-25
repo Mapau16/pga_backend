@@ -4,8 +4,8 @@ import { Process } from "./process.model";
 import { Question } from "./question.model";
 
 enum Status {
-    NA = 'NA',
-    APLICA = 'APLICA'
+    NO_CUMPLE = 'NO CUMPLE',
+    CUMPLE = 'CUMPLE'
 }
 
 export interface Item {
@@ -27,7 +27,7 @@ const ItemSchema = new Schema<Item>({
     process: { type: mongoose.Schema.Types.ObjectId, ref: 'Process' },
     question: { type: mongoose.Schema.Types.ObjectId, ref: 'Question' },
     observation: { type: String, required: false },
-    status: { type: String, enum: Object.values(Status), default: Status.NA }
+    status: { type: String, enum: Object.values(Status), default: Status.NO_CUMPLE }
 }, { _id: false });
 
 const CriterioSchema = new Schema<Criterio>({ 

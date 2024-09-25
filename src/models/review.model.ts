@@ -2,9 +2,10 @@ import { Schema, model, Document } from 'mongoose';
 import CriterioSchema, { Criterio} from './criterio.model';
 
 enum Status {
-    NA = 'NA',
-    APLICA = 'APLICA'
+    NO_CUMPLE = 'NO CUMPLE',
+    CUMPLE = 'CUMPLE'
 }
+
 
 export interface Review extends Document {
     name: string;
@@ -46,7 +47,7 @@ const CriterioReviewSchema = new Schema<CriterioReview>({
         process:  { type: String, required: true },
         question: { type: String, required: true },
         observation:  { type: String },
-        status: { type: String, enum: Object.values(Status), default: Status.NA },
+        status: { type: String, enum: Object.values(Status), default: Status.NO_CUMPLE },
 }]
 }, { _id: false });
 
