@@ -56,7 +56,7 @@ class AuthService {
     private async sendEmailValidation(userEmail: string): Promise<void> {
         
         const token = JwtAdapter.generateToken({email: userEmail}, '10m', 'EMAILTOKEN');
-        const link = `http://localhost:4200/auth/validate-account/${token}`;
+        const link = `http://3.131.160.76/auth/validate-account/${token}`;
         const html = `
         <body style="font-family: 'Poppins', Arial, sans-serif">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
